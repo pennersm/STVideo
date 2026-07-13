@@ -47,7 +47,8 @@
 ./IMAGES
 ./Document_3_Production_Assets.md
 ./OUTPUT
+./PRODUCTION_STEPS
+./files_round1.txt
 ./Document_0_Video_Production_Methodology_v0.4.md
-./files_round0.txt
-./Document_2_AI_Video_Production_Script_v0.4.md
 ./ANIMATIONS
+./Document_2_AI_Video_Production_Script_v0.4.md
