@@ -1,14 +1,14 @@
 # Document 2 – AI Video Production Script
 
-Status: Version 0.2 (Structure Review Draft)  
+Status: Version 0.4 (Module 1 Scene Drafts)  
 Target audience: Network / Security / OT Engineers  
 Target duration: ~60 minutes  
 Source of truth: Semtech Integration Guide  
-Narrative food: `ORIGINAL_INPUTS/Semtech_Certs_Blog_v2.md`  
+Narrative food: `ORIGINAL_INPUTS/Semtech_Certs_Blog_v2.md`
 
 ## Working Intent
 
-This document is the structure-first production script for the video. It is not yet the final narration and it is not intended to replace the Integration Guide. The goal of this version is to make the content structure understandable enough for sales, engineering, and marketing review before we invest time in exact wording, screen timing, callouts, and tool-specific production details.
+This document is the structure-first production script for the video. It is not yet the final narration and it is not intended to replace the Integration Guide. The goal of this version is to make the content structure understandable enough for sales, engineering, and marketing review before investing time in exact wording, screen timing, callouts, and tool-specific production details.
 
 The video should move from business and architecture context into concrete configuration. It should explain why the design exists, then show how certificates, EST enrollment, AirLink configuration, NGFW configuration, routing, policy, and troubleshooting fit together. The intended style is engineer-to-engineer: clear, technically credible, and practical, without turning the video into a generic marketing animation.
 
@@ -20,33 +20,240 @@ The source guide remains the technical source of truth. This script can reorder 
 
 ## 1.1 Welcome
 
-This opening scene introduces the joint solution and sets expectations for the viewer. Semtech provides industrial cellular connectivity through AirLink routers, while Palo Alto Networks provides security enforcement, visibility, certificate-based authentication, and centralized inspection through the NGFW. The welcome should be short and practical: this is a technical walkthrough of how both sides work together to build secure field connectivity.
+**Status**  
+Draft.
 
-The tone should avoid a generic corporate intro. Instead, it should immediately tell engineers what they will see: a certificate-authenticated IPSec overlay between a Semtech AirLink router and a Palo Alto Networks firewall, with certificate enrollment supported by CyberArk / ZT-PKI.
+**Estimated Duration**  
+45–60 seconds.
+
+**Scene Purpose**  
+Open the video with a clear statement of what will be built and why the viewer should care. The viewer should immediately understand that this is not a generic product overview, but a practical engineering walkthrough of a joint Semtech AirLink and Palo Alto Networks integration.
+
+**Narrative Intent**  
+The scene should introduce Semtech as the connectivity side and Palo Alto Networks as the security side. It should set the expectation that the video will show how to create a certificate-authenticated IPSec overlay from a field router into a Palo Alto Networks NGFW, using CyberArk / ZT-PKI for the certificate lifecycle elements used in the current integration.
+
+The tone should be direct and practical. Avoid long corporate messaging. The first minute should answer: what are we building, which systems are involved, and what result should the engineer expect by the end of the video?
+
+**Visual Plan**  
+Start with a clean title card using the solution name and the three main building blocks: Semtech AirLink, Palo Alto Networks NGFW, and CyberArk / ZT-PKI. Then transition into a very simple line diagram: field device → AirLink router → cellular / internet transport → Palo Alto Networks NGFW → service network.
+
+**On-Screen Actions**  
+No product GUI yet. Use a title card, then a simple animated architecture sketch. Keep movement minimal: components fade in from left to right, ending with a highlighted IPSec tunnel between AirLink and NGFW.
+
+**Callouts**  
+- “Semtech AirLink: field connectivity”
+- “Palo Alto Networks NGFW: security enforcement”
+- “CyberArk / ZT-PKI: certificate lifecycle”
+- “Certificate-authenticated IPSec tunnel”
+
+**Draft Narration**  
+Welcome. In this video, we will walk through a joint Semtech and Palo Alto Networks solution for securing field connectivity.
+
+The goal is to connect devices behind a Semtech AirLink router to services behind a Palo Alto Networks Next-Generation Firewall using a certificate-authenticated IPSec tunnel. The cellular or WAN connection provides transport, but the actual trust model is based on device identity, certificates, and firewall policy.
+
+We will use the current CyberArk / ZT-PKI workflow to prepare the certificate enrollment pieces, configure the AirLink router, configure the Palo Alto Networks firewall, and then validate that the tunnel and traffic flow are working end to end.
+
+**Production Notes**  
+This scene should look polished but not overproduced. Use it to establish credibility and direction. Do not yet explain EST, PKI theory, routing, or detailed product configuration. Those come later.
+
+If this video is shown to sales or marketing first, this scene should be understandable without deep firewall knowledge. If shown to engineers, it should still feel technically precise and not like a brochure.
+
+**Exit / Transition**  
+Next we will look at the problem this architecture solves for utilities and other distributed industrial environments.
+
+---
 
 ## 1.2 Solution Overview
 
-This scene explains the problem space: utility and industrial providers have large numbers of remote sites and field devices, but many of those devices do not have their own cellular identity or native security stack. AirLink routers solve the connectivity problem, but the security architecture still needs visibility, reliable endpoint identity, scalable onboarding, and consistent policy enforcement.
+**Status**  
+Draft.
 
-The solution uses cellular as transport, not as the security architecture itself. The actual trust model is built around certificate-based router identity, IPSec tunnel establishment, centralized firewall inspection, and policy control independent of carrier IPs, SIMs, APNs, or private addressing models.
+**Estimated Duration**  
+75–90 seconds.
+
+**Scene Purpose**  
+Explain the problem that makes this integration relevant. The viewer should understand why field connectivity alone is not enough and why utility or industrial environments need scalable identity, visibility, and policy enforcement for remote devices.
+
+**Narrative Intent**  
+The scene should describe a distributed utility or industrial environment with many remote assets, such as meters, sensors, reclosers, surveillance equipment, OT devices, and IT systems. Many of these devices do not have their own SIM, cellular interface, security stack, or manageable identity, so they depend on an AirLink router for connectivity.
+
+The key message is that the cellular network solves reachability, but not the full security problem. Carrier IPs, APNs, NAT behavior, and SIMs are useful transport mechanisms, but they are not enough to provide end-to-end visibility, reliable router identity, threat prevention, or scalable operations.
+
+**Visual Plan**  
+Use a distributed field-site animation. Show several remote field devices behind AirLink routers, then show them connecting over cellular or WAN transport into a central security point. Introduce visual problem labels: “limited device visibility,” “carrier-dependent addressing,” “manual VPN scale,” and “identity tied to router certificate.”
+
+**On-Screen Actions**  
+No GUI actions. Use a simple animated problem-to-solution sequence: first show many remote sites, then show transport complexity, then overlay a certificate-authenticated IPSec tunnel toward the NGFW.
+
+**Callouts**  
+- “Connectivity is not the same as security”
+- “SIM / APN / IP address ≠ strong endpoint identity”
+- “Certificate identity survives carrier changes”
+- “Centralized visibility and policy”
+
+**Draft Narration**  
+Utility and industrial providers often operate large numbers of remote field sites. Those sites may contain meters, sensors, operational technology, surveillance equipment, or other systems that need reliable connectivity back to a service network or datacenter.
+
+Semtech AirLink routers solve the field connectivity problem very well. They provide cellular or WAN access for devices that may not have their own cellular interface or SIM. But once that connectivity exists, the security architecture still needs to answer several questions: which router is this, what devices are behind it, what traffic is moving, and which policy should be applied?
+
+In this solution, cellular remains the transport layer. The security model is built above it, using certificate-based AirLink identity, IPSec tunnel establishment, centralized firewall inspection, and policy control independent of carrier IP addressing or APN design.
+
+**Production Notes**  
+This scene can borrow heavily from the Semtech certificates blog narrative. Keep the customer problem concrete and credible. Do not overstate that SIMs are useless; instead, position SIMs and APNs as transport and subscription mechanisms, not complete security identity.
+
+**Exit / Transition**  
+Now that the problem is clear, we can look at the architecture that separates transport from security and identity.
+
+---
 
 ## 1.3 Architecture
 
-This scene presents the high-level architecture without going deep into routing yet. A wired or local field device connects behind the AirLink router, the AirLink establishes an IPSec tunnel over whichever cellular or WAN transport is available, and the Palo Alto Networks NGFW terminates the tunnel and inspects the decapsulated traffic.
+**Status**  
+Draft.
 
-The main architectural message is separation of concerns. Cellular provides reachability; certificates provide identity; IPSec provides encrypted transport; and the NGFW provides visibility, segmentation, logging, and threat prevention for the actual application traffic.
+**Estimated Duration**  
+75–90 seconds.
+
+**Scene Purpose**  
+Show the overall architecture at a level that engineers can understand before seeing configuration screens. The viewer should understand the end-to-end path from a field device through the AirLink, through the IPSec tunnel, into the NGFW, and onward to services.
+
+**Narrative Intent**  
+The scene should emphasize separation of concerns. Cellular or WAN transport provides reachability; certificates provide identity; IPSec provides encrypted overlay transport; and the Palo Alto Networks NGFW provides tunnel termination, segmentation, visibility, logging, and threat prevention for the decapsulated application traffic.
+
+This scene should stay high level and avoid deep routing detail. The important idea is that the firewall sees and controls the actual traffic between field devices and service networks, while the underlying carrier network becomes transparent transport.
+
+**Visual Plan**  
+Use a clean architecture diagram with three zones: field site, transport network, and customer service network. Show a device behind the AirLink, an IPSec tunnel across the transport network, the NGFW as termination and inspection point, and services behind the firewall.
+
+Use a second overlay to show identity: AirLink certificate identity on one side, NGFW certificate identity on the other, and mutual authentication during IKE.
+
+**On-Screen Actions**  
+No GUI actions. Animate in layers:
+1. physical / transport connectivity,
+2. certificate identities,
+3. IPSec overlay,
+4. inspected application traffic through the NGFW.
+
+**Callouts**  
+- “Transport: cellular / WAN”
+- “Identity: certificates”
+- “Overlay: IPSec”
+- “Inspection: NGFW policy and logs”
+- “Application traffic visible after decapsulation”
+
+**Draft Narration**  
+At a high level, the architecture separates connectivity from security.
+
+A local device connects behind the Semtech AirLink router at the field site. The AirLink uses whatever cellular or WAN transport is available to reach the Palo Alto Networks firewall. Across that transport, the AirLink establishes an IPSec tunnel to the NGFW.
+
+The tunnel is authenticated with certificates. The AirLink proves its identity using its router certificate, and the firewall presents its own certificate identity back to the AirLink. Once the tunnel is established, the NGFW terminates IPSec, decapsulates the traffic, and applies routing, zones, security policy, visibility, and threat prevention to the actual application traffic.
+
+**Production Notes**  
+This is likely one of the most important scenes for sales review. The diagram must be simple enough to understand quickly, but technically accurate enough for engineers. Avoid detailed logical router design here; that belongs later in Module 5.
+
+**Exit / Transition**  
+With the architecture in mind, the next step is to identify the products and systems that participate in the workflow.
+
+---
 
 ## 1.4 Products Used
 
-This scene lists the products and systems involved, strictly aligned with the Integration Guide. The viewer should understand that three administrative domains are involved: the CyberArk / ZT-PKI environment for certificate issuance and EST parameters, the Semtech AirLink router for field-side connectivity and EST enrollment, and the Palo Alto Networks NGFW for IPSec termination and security enforcement.
+**Status**  
+Draft.
 
-The scene should also clarify what is intentionally out of scope. Basic internet access, initial AirLink activation, base NGFW networking, and customer-specific routing policies are assumed to exist or be prepared separately.
+**Estimated Duration**  
+60–75 seconds.
+
+**Scene Purpose**  
+List the products and administrative systems used in the integration. The viewer should know which platform is responsible for which part of the workflow before the detailed scenes begin.
+
+**Narrative Intent**  
+The scene should align strictly with the Integration Guide and avoid adding products that are not part of the validated workflow. The three central systems are CyberArk / ZT-PKI for certificate policy, API credentials, CA chains, and manual certificate issuance; Semtech AirLink for field connectivity, EST enrollment, and IPSec client configuration; and Palo Alto Networks NGFW for certificate validation, IKE/IPSec termination, routing, and security policy.
+
+The scene should also define assumptions. Basic NGFW network reachability, AirLink internet access, ALMS registration where used, and customer-specific routing design are assumed rather than taught from scratch.
+
+**Visual Plan**  
+Use a three-column product responsibility table. Each column should contain the product name, a simple icon, and the key responsibilities. Keep it visual and concise rather than a dense bullet list.
+
+**On-Screen Actions**  
+No live GUI yet. Show each product responsibility column appearing one by one. End with a small “Prerequisites” area that lists access to ZT-PKI, AirLink GUI or ALMS, PAN-OS GUI, and planning data such as local and remote networks.
+
+**Callouts**  
+- “ZT-PKI: certificate policy and enrollment data”
+- “AirLink: EST client and IPSec initiator”
+- “NGFW: IPSec responder and security enforcement”
+- “Planning data required before configuration”
+
+**Draft Narration**  
+Three main systems participate in this integration.
+
+The first is CyberArk / ZT-PKI, which provides the certificate policy, the CA label used by EST, the API credentials for initial enrollment, the CA chains, and the manual certificate issuance flow used for the firewall certificate.
+
+The second is the Semtech AirLink router. It provides field connectivity, performs EST enrollment for its own certificate, and initiates the IPSec tunnel toward the firewall.
+
+The third is the Palo Alto Networks Next-Generation Firewall. It validates the AirLink certificate, presents its own certificate identity, terminates the IPSec tunnel, routes the decapsulated traffic, and applies security policy.
+
+Before starting, you need access to these systems and the planning data for the field-side networks, service-side networks, and certificate identities.
+
+**Production Notes**  
+This scene should be easy to replace later if product naming changes after Palo Alto / CyberArk integration evolves. Keep the wording “current workflow” around CyberArk / ZT-PKI to avoid locking the video too tightly to temporary branding.
+
+**Exit / Transition**  
+Now we can walk through the overall workflow from certificate preparation to tunnel validation.
+
+---
 
 ## 1.5 Overall Workflow
 
-This scene gives the viewer the process map before the detailed configuration begins. The workflow starts with certificate and EST preparation, then moves to AirLink enrollment and IPSec configuration, then to the firewall-side IKE/IPSec configuration, routing, security policy, validation, and troubleshooting.
+**Status**  
+Draft.
 
-This scene should make the dependency chain obvious: define EST secrets, define the certificate request format, prepare the AirLink, let the AirLink enroll for a certificate, configure IPSec identities and selectors, provision the NGFW objects, and finally bring the tunnel up once both sides can authenticate each other.
+**Estimated Duration**  
+90–120 seconds.
+
+**Scene Purpose**  
+Give the viewer a complete process map before the detailed implementation starts. This scene should prevent the rest of the video from feeling like random product hopping between ZT-PKI, AirLink, and NGFW.
+
+**Narrative Intent**  
+The scene should explain the dependency order. First, prepare the certificate and EST information in ZT-PKI. Then configure the AirLink so it can trust the EST service, authenticate with EST credentials, generate its CSR, and obtain its certificate. After that, configure AirLink IPSec using the certificate identity and the required local and remote networks.
+
+Then the firewall side is prepared: certificate profile, NGFW certificate, crypto profiles, IKE Gateway, tunnel interface, IPSec tunnel, routing, and security policy. The final step is validation and troubleshooting in the correct order.
+
+**Visual Plan**  
+Use a horizontal workflow timeline or swimlane diagram with three lanes: ZT-PKI, AirLink, and NGFW. Show the scenes grouped by dependency instead of by original document order. Use a marker for “AirLink has certificate,” another marker for “AirLink initiates IKE,” and another marker for “Tunnel established.”
+
+**On-Screen Actions**  
+No GUI actions. Animate the workflow from left to right:
+1. ZT-PKI parameters and CA material,
+2. AirLink EST enrollment,
+3. AirLink IPSec initiation,
+4. NGFW certificate and IKE/IPSec configuration,
+5. routing and policy,
+6. validation.
+
+**Callouts**  
+- “Step 1: Prepare PKI and EST material”
+- “Step 2: Enroll AirLink certificate”
+- “Step 3: Configure AirLink IPSec”
+- “Step 4: Configure NGFW responder”
+- “Step 5: Route, secure, validate”
+
+**Draft Narration**  
+The full workflow has several steps, but the dependency chain is straightforward.
+
+We begin in the certificate platform. There we identify the CA policy, collect the CA label, generate the API key used for initial enrollment, and download the certificate chains needed for trust.
+
+Next, we move to the AirLink. The router is configured to trust the EST service, use the enrollment credentials, generate a certificate request, and obtain its own certificate. That certificate becomes the AirLink identity used later for IPSec.
+
+After the AirLink has a certificate, we configure its IPSec tunnel settings: local and remote networks, authentication IDs, peer address, and crypto parameters. The AirLink then starts initiating IKE toward the firewall.
+
+On the NGFW, we prepare the firewall certificate, certificate profile, crypto profiles, IKE Gateway, tunnel interface, and IPSec tunnel. Finally, we add routing and security policy, validate the tunnel and traffic flow, and use a structured troubleshooting process if anything fails.
+
+**Production Notes**  
+This scene is a candidate for being reused as a chapter menu in the production tool. If the production tool supports chapter markers, use this workflow to create them. Keep the visual simple and avoid showing the full 21-step guide table.
+
+**Exit / Transition**  
+We will start with the identity and certificate lifecycle, because the IPSec tunnel depends on both peers being able to prove who they are.
 
 ---
 
