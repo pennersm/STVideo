@@ -49,5 +49,5 @@
 ./OUTPUT
 ./Document_0_Video_Production_Methodology.md
 ./files_round0.txt
-./Document_2_AI_Video_Production_Script_v0.1.md
+./Document_2_AI_Video_Production_Script_v0.3.md
 ./ANIMATIONS
