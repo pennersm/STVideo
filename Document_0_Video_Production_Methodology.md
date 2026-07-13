@@ -16,4 +16,11 @@ Guide remains the technical source of truth.\
 - Freeze structure before narration.\
 - Keep scene numbering stable.\
 - Record open questions in Document 3.\
-- Never change technical content without updating the Integration Guide.
+- Never change technical content without usking
+- Never change the Integration Guide!
+
+
+**Iterations\**
+- fetch the files from the repo upon my explicit request
+- when you see a "mpe-qa" tag, it indicates that I am asking a question for which I would like you to propose an answer inside that same document right at that place where you find the tag
+
